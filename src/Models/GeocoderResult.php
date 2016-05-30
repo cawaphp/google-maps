@@ -82,14 +82,14 @@ class GeocoderResult implements \JsonSerializable
     protected static function extract(array &$data, $keys)
     {
         if (!is_array($keys)) {
-            $keys = explode("/", $keys);
+            $keys = explode('/', $keys);
         }
 
         if (isset($data[$keys[0]])) {
-
             if (sizeof($keys) == 1) {
                 $return = $data[$keys[0]];
                 unset($data[$keys[0]]);
+
                 return $return;
             } else {
                 $key = array_shift($keys);
@@ -129,7 +129,7 @@ class GeocoderResult implements \JsonSerializable
                     self::extract($data, 'geometry/viewport/southwest/lat'),
                     self::extract($data, 'geometry/viewport/southwest/lng')
                 )
-             );
+            );
         }
 
         if (isset($data['geometry']['bounds'])) {
@@ -142,7 +142,7 @@ class GeocoderResult implements \JsonSerializable
                     self::extract($data, 'geometry/bounds/southwest/lat'),
                     self::extract($data, 'geometry/bounds/southwest/lng')
                 )
-             );
+            );
         }
 
         $return->geometry = new Geometry(

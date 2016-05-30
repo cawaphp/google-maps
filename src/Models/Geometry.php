@@ -21,8 +21,12 @@ class Geometry
      * @param Bounds $viewport
      * @param Bounds|null $bounds
      */
-    public function __construct(Coordinate $location, string $locationType = null, Bounds $viewport = null, Bounds $bounds = null)
-    {
+    public function __construct(
+        Coordinate $location,
+        string $locationType = null,
+        Bounds $viewport = null,
+        Bounds $bounds = null
+    ) {
         $this->location = $location;
         $this->locationType = $locationType;
         $this->viewport = $viewport;

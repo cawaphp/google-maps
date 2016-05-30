@@ -117,7 +117,7 @@ class Photo
             $queries['maxheight'] = $maxHeight;
         }
 
-        $uri = new Uri("https://maps.googleapis.com/maps/api/place/photo");
+        $uri = new Uri('https://maps.googleapis.com/maps/api/place/photo');
         $uri->addQueries($queries);
 
         return $uri;

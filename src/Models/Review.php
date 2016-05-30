@@ -19,21 +19,20 @@ class Review
 {
     /**
      * @param string $authorName
-     * @param string $authorUrl
      * @param string $language
      * @param int $rating
      * @param string $text
      * @param int $date
+     * @param string $authorUrl
      */
     public function __construct(
         string $authorName,
-        string $authorUrl = null,
         string $language,
         int $rating,
         string $text,
-        int $date
-    )
-    {
+        int $date,
+        string $authorUrl = null
+    ) {
         $this->authorName = $authorName;
         $this->authorUrl = $authorUrl;
         $this->language = $language;

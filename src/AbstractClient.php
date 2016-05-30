@@ -18,7 +18,6 @@ use Cawa\GoogleMaps\Exceptions\InvalidRequest;
 use Cawa\GoogleMaps\Exceptions\OverQueryLimit;
 use Cawa\GoogleMaps\Exceptions\RequestDenied;
 use Cawa\GoogleMaps\Exceptions\Unknown;
-use Cawa\Http\Response;
 use Cawa\HttpClient\HttpClient;
 use Cawa\Net\Uri;
 
@@ -44,7 +43,7 @@ class AbstractClient
     {
         if (!self::$client) {
             self::$client = new HttpClient();
-            $base = new Uri("https://maps.googleapis.com/maps/api");
+            $base = new Uri('https://maps.googleapis.com/maps/api');
             $base->addQuery('key', DI::config()->get('googlemaps/apikey'));
 
             self::$client->setBaseUri($base);
@@ -71,5 +70,4 @@ class AbstractClient
 
         return $data['results'];
     }
-
 }

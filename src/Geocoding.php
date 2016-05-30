@@ -24,7 +24,7 @@ class Geocoding extends AbstractClient
      */
     public static function coordinateLookup(string $address) : array
     {
-        $data = self::query("/geocode/json", [
+        $data = self::query('/geocode/json', [
             'address' => $address,
         ]);
 
@@ -44,7 +44,7 @@ class Geocoding extends AbstractClient
      */
     public static function addressLookup(float $lat, float $long) : array
     {
-        $data = self::query("/geocode/json", [
+        $data = self::query('/geocode/json', [
             'lat' => $lat,
             'lng' => $long,
         ]);

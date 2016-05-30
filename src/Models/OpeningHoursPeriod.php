@@ -13,7 +13,6 @@ declare (strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
-
 use Cawa\Date\DateTime;
 
 class OpeningHoursPeriod

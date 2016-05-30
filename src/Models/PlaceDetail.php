@@ -49,11 +49,11 @@ class PlaceDetail extends GeocoderResult
             foreach (self::extract($data, 'reviews') as $current) {
                 $return->reviews[] = new Review(
                     $current['author_name'],
-                    $current['author_url'] ?? null,
                     $current['language'],
                     $current['rating'],
                     $current['text'],
-                    $current['time']
+                    $current['time'],
+                    $current['author_url'] ?? null
                 );
             }
         }
