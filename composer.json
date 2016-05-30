@@ -1,0 +1,23 @@
+{
+    "name": "cawaphp/google-maps",
+    "description": "Сáша Google Maps",
+    "keywords": ["cawa", "googlemaps"],
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "tchiotludo"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Cawa\\GoogleMaps\\": "src"
+        }
+    },
+    "require": {
+        "php": "~7.0",
+        "cawaphp/cawa" : "dev-master",
+        "cawaphp/httpclient" : "dev-master"
+    }
+}
