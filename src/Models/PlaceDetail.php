@@ -65,12 +65,14 @@ class PlaceDetail extends GeocoderResult
                 $open->hour($current['open']['hours']);
                 $open->minute($current['open']['minutes']);
                 $open->second(0);
+                $open->addMinutes(-$return->utcOffset);
 
                 $close = new DateTime();
                 $close->setWeekendDays($current['close']['day']);
                 $close->hour($current['close']['hours']);
                 $close->minute($current['close']['minutes']);
                 $close->second(0);
+                $close->addMinutes(-$return->utcOffset);
 
                 $return->openingHours[] = new OpeningHoursPeriod($open, $close);
             }
