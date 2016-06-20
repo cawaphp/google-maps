@@ -106,7 +106,7 @@ class Photo
 
         $queries = [
             'reference' => $this->reference,
-            'key' => DI::config()->get('googlemaps/apikey')
+            'key' => DI::config()->get('googleMaps/apikey')
         ];
 
         if ($maxWidth) {

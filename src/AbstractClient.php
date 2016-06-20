@@ -44,7 +44,7 @@ class AbstractClient
         if (!self::$client) {
             self::$client = new HttpClient();
             $base = new Uri('https://maps.googleapis.com/maps/api');
-            $base->addQuery('key', DI::config()->get('googlemaps/apikey'));
+            $base->addQuery('key', DI::config()->get('googleMaps/apikey'));
 
             self::$client->setBaseUri($base);
         }
