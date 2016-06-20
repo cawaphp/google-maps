@@ -13,11 +13,11 @@ declare (strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
-use Cawa\Orm\SerializableTrait;
+use Cawa\Serializer\JsonSerializable;
 
 class GeocoderResult implements \JsonSerializable
 {
-    use SerializableTrait;
+    use JsonSerializable;
 
     /**
      * The returned result is approximate.
@@ -166,7 +166,7 @@ class GeocoderResult implements \JsonSerializable
     }
 
     /**
-     * @param array $data
+     * @param array|string $data
      *
      * @return static
      */
@@ -174,7 +174,7 @@ class GeocoderResult implements \JsonSerializable
     {
         if (isset($data['addressComponents'])) {
             $item = new static();
-            $item->unserializeData($item, $data);
+            $item->jsonUnserialize(json_encode($data));
 
             return $item;
         }
@@ -308,13 +308,5 @@ class GeocoderResult implements \JsonSerializable
     public function getUrl() : string
     {
         return $this->url;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize()
-    {
-        return $this->getSerializableData($this);
     }
 }

@@ -14,12 +14,9 @@ declare (strict_types = 1);
 namespace Cawa\GoogleMaps\Models;
 
 use Cawa\Date\DateTime;
-use Cawa\Orm\SerializableTrait;
 
 class PlaceDetail extends GeocoderResult
 {
-    use SerializableTrait;
-
     /**
      * @param array $data
      *
@@ -170,13 +167,5 @@ class PlaceDetail extends GeocoderResult
     public function getOpeningHours() : array
     {
         return $this->openingHours;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize()
-    {
-        return $this->getSerializableData($this);
     }
 }
