@@ -122,12 +122,12 @@ class GeocoderResult implements \JsonSerializable
         if (isset($data['geometry']['viewport'])) {
             $viewport = new Bounds(
                 new Coordinate(
-                    self::extract($data, 'geometry/viewport/northeast/lat'),
-                    self::extract($data, 'geometry/viewport/northeast/lng')
+                    self::extract($data, 'geometry/viewport/north'),
+                    self::extract($data, 'geometry/viewport/east')
                 ),
                 new Coordinate(
-                    self::extract($data, 'geometry/viewport/southwest/lat'),
-                    self::extract($data, 'geometry/viewport/southwest/lng')
+                    self::extract($data, 'geometry/viewport/south'),
+                    self::extract($data, 'geometry/viewport/west')
                 )
             );
         }
@@ -135,12 +135,12 @@ class GeocoderResult implements \JsonSerializable
         if (isset($data['geometry']['bounds'])) {
             $bounds = new Bounds(
                 new Coordinate(
-                    self::extract($data, 'geometry/bounds/northeast/lat'),
-                    self::extract($data, 'geometry/bounds/northeast/lng')
+                    self::extract($data, 'geometry/bounds/north'),
+                    self::extract($data, 'geometry/bounds/east')
                 ),
                 new Coordinate(
-                    self::extract($data, 'geometry/bounds/southwest/lat'),
-                    self::extract($data, 'geometry/bounds/southwest/lng')
+                    self::extract($data, 'geometry/bounds/south'),
+                    self::extract($data, 'geometry/bounds/west')
                 )
             );
         }
