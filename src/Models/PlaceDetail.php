@@ -15,7 +15,7 @@ namespace Cawa\GoogleMaps\Models;
 
 use Cawa\Date\DateTime;
 
-class PlaceDetail extends GeocoderResult
+class PlaceDetail extends Place
 {
     /**
      * @param array $data
@@ -26,21 +26,9 @@ class PlaceDetail extends GeocoderResult
     {
         /** @var PlaceDetail $return */
         $return = parent::map($data);
-        $return->name = self::extract($data, 'name');
         $return->phone = self::extract($data, 'international_phone_number');
         $return->website = self::extract($data, 'website');
         $return->rating = self::extract($data, 'rating');
-
-        if (isset($data['photos'])) {
-            foreach (self::extract($data, 'photos') as $current) {
-                $return->photos[] = new Photo(
-                    $current['width'],
-                    $current['height'],
-                    $current['html_attributions'],
-                    $current['photo_reference'] ?? null
-                );
-            }
-        }
 
         if (isset($data['reviews'])) {
             foreach (self::extract($data, 'reviews') as $current) {
@@ -55,21 +43,28 @@ class PlaceDetail extends GeocoderResult
             }
         }
 
-        if (isset($data['opening_hours'])) {
+        if (isset($data['opening_hours']['periods'])) {
             foreach (self::extract($data, 'opening_hours/periods') as $current) {
+
+                list($hour, $min) = self::extractHourMin($current['open']);
                 $open = new DateTime();
-                $open->setWeekendDays($current['open']['day']);
-                $open->hour($current['open']['hours']);
-                $open->minute($current['open']['minutes']);
+                $open->setTimezone('UTC');
+                $open->next($current['open']['day']);
+                $open->hour($hour);
+                $open->minute($min);
                 $open->second(0);
                 $open->addMinutes(-$return->utcOffset);
+                $open->setTimezone(date_default_timezone_get());
 
+                list($hour, $min) = self::extractHourMin($current['close']);
                 $close = new DateTime();
-                $close->setWeekendDays($current['close']['day']);
-                $close->hour($current['close']['hours']);
-                $close->minute($current['close']['minutes']);
+                $close->setTimezone('UTC');
+                $close->next($current['close']['day']);
+                $close->hour($hour);
+                $close->minute($min);
                 $close->second(0);
                 $close->addMinutes(-$return->utcOffset);
+                $close->setTimezone(date_default_timezone_get());
 
                 $return->openingHours[] = new OpeningHoursPeriod($open, $close);
             }
@@ -79,16 +74,17 @@ class PlaceDetail extends GeocoderResult
     }
 
     /**
-     * @var string
+     * @param array $data
+     *
+     * @return array
      */
-    private $name;
-
-    /**
-     * @return string
-     */
-    public function getName() : string
+    private static function extractHourMin(array $data) : array
     {
-        return $this->name;
+        if (isset($data['hours'])) {
+            return [$data['hours'], $data['minutes']];
+        } else {
+            return [substr($data['time'], 0, 2), substr($data['time'], 2, 2)];
+        }
     }
 
     /**
@@ -115,19 +111,6 @@ class PlaceDetail extends GeocoderResult
     public function getWebsite() : string
     {
         return $this->website;
-    }
-
-    /**
-     * @var Photo[]
-     */
-    private $photos = [];
-
-    /**
-     * @return Photo[]
-     */
-    public function getPhotos() : array
-    {
-        return $this->photos;
     }
 
     /**
@@ -162,7 +145,7 @@ class PlaceDetail extends GeocoderResult
     private $openingHours = [];
 
     /**
-     * @return array
+     * @return array|OpeningHoursPeriod[]
      */
     public function getOpeningHours() : array
     {

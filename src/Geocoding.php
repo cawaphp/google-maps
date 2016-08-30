@@ -29,7 +29,7 @@ class Geocoding extends AbstractClient
         ]);
 
         $return = [];
-        foreach ($data as $current) {
+        foreach ($data['results'] as $current) {
             $return[] = GeocoderResult::parse($current);
         }
 
@@ -50,7 +50,7 @@ class Geocoding extends AbstractClient
         ]);
 
         $return = [];
-        foreach ($data as $current) {
+        foreach ($data['results'] as $current) {
             $return[] = GeocoderResult::parse($current);
         }
 

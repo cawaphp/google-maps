@@ -93,28 +93,28 @@ class Photo
     }
 
     /**
-     * @param null $maxWidth
-     * @param null $maxHeight
+     * @param int $maxWidth
+     * @param int $maxHeight
      *
      * @return Uri
      */
-    public function getUrl($maxWidth = null, $maxHeight = null) : Uri
+    public function getUrl(int $maxWidth = null, int $maxHeight = null) : Uri
     {
         if ($maxWidth && $maxHeight) {
             throw new \InvalidArgumentException("You can't specify maxWidth AND maxHeight");
         }
 
         $queries = [
-            'reference' => $this->reference,
+            'photoreference' => $this->reference,
             'key' => DI::config()->get('googleMaps/apikey')
         ];
 
         if ($maxWidth) {
-            $queries['maxwidth'] = $maxWidth;
+            $queries['maxwidth'] = (string) $maxWidth;
         }
 
         if ($maxHeight) {
-            $queries['maxheight'] = $maxHeight;
+            $queries['maxheight'] = (string) $maxHeight;
         }
 
         $uri = new Uri('https://maps.googleapis.com/maps/api/place/photo');

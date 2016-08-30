@@ -13,11 +13,13 @@ declare (strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
+use Cawa\Serializer\ArraySerializable;
 use Cawa\Serializer\JsonSerializable;
 
 class GeocoderResult implements \JsonSerializable
 {
     use JsonSerializable;
+    use ArraySerializable;
 
     /**
      * The returned result is approximate.
@@ -109,17 +111,30 @@ class GeocoderResult implements \JsonSerializable
     {
         $return = new static();
 
-        foreach (self::extract($data, 'address_components') as $current) {
-            $return->addressComponents[] = new AddressComponent(
-                $current['long_name'],
-                $current['short_name'],
-                $current['types']
-            );
+        if (isset($data['address_components'])) {
+            foreach (self::extract($data, 'address_components') as $current) {
+                $return->addressComponents[] = new AddressComponent(
+                    $current['long_name'],
+                    $current['short_name'],
+                    $current['types']
+                );
+            }
         }
 
         $viewport = $bounds = null;
 
-        if (isset($data['geometry']['viewport'])) {
+        if (isset($data['geometry']['viewport']['northeast'])) {
+            $viewport = new Bounds(
+                new Coordinate(
+                    self::extract($data, 'geometry/viewport/northeast/lat'),
+                    self::extract($data, 'geometry/viewport/northeast/lng')
+                ),
+                new Coordinate(
+                    self::extract($data, 'geometry/viewport/southwest/lat'),
+                    self::extract($data, 'geometry/viewport/southwest/lng')
+                )
+            );
+        } else if (isset($data['geometry']['viewport'])) {
             $viewport = new Bounds(
                 new Coordinate(
                     self::extract($data, 'geometry/viewport/north'),
@@ -221,7 +236,7 @@ class GeocoderResult implements \JsonSerializable
      *
      * @return string
      */
-    public function getFormattedAddress() : string
+    public function getFormattedAddress()
     {
         return $this->formattedAddress;
     }

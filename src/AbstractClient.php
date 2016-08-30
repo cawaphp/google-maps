@@ -44,9 +44,12 @@ class AbstractClient
         if (!self::$client) {
             self::$client = new HttpClient();
             $base = new Uri('https://maps.googleapis.com/maps/api');
-            $base->addQuery('key', DI::config()->get('googleMaps/apikey'));
 
             self::$client->setBaseUri($base);
+        }
+
+        if (!isset($queries['key'])) {
+            $queries['key'] = DI::config()->get('googleMaps/apikey');
         }
 
         $uri = new Uri($url);
@@ -58,16 +61,16 @@ class AbstractClient
         if (!($data['status'] == 'OK' || $data['status'] == 'ZERO_RESULTS')) {
             switch ($data['status']) {
                 case 'OVER_QUERY_LIMIT':
-                    throw new OverQueryLimit($data['error_message'] ?? null);
+                    throw new OverQueryLimit($data['error_message'] ?? $data['status']);
                 case 'REQUEST_DENIED':
-                    throw new RequestDenied($data['error_message'] ?? null);
+                    throw new RequestDenied($data['error_message'] ?? $data['status']);
                 case 'INVALID_REQUEST':
-                    throw new InvalidRequest($data['error_message'] ?? null);
+                    throw new InvalidRequest($data['error_message'] ?? $data['status']);
                 default:
-                    throw new Unknown($data['error_message'] ?? null);
+                    throw new Unknown($data['error_message'] ?? $data['status']);
             }
         }
 
-        return $data['results'];
+        return $data;
     }
 }
