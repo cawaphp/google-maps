@@ -134,7 +134,7 @@ class GeocoderResult implements \JsonSerializable
                     self::extract($data, 'geometry/viewport/southwest/lng')
                 )
             );
-        } else if (isset($data['geometry']['viewport'])) {
+        } elseif (isset($data['geometry']['viewport'])) {
             $viewport = new Bounds(
                 new Coordinate(
                     self::extract($data, 'geometry/viewport/north'),

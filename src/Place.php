@@ -109,11 +109,11 @@ class Place extends AbstractClient
             $return[] = PlaceModel::parse($current);
         }
 
-        if (isset($data["next_page_token"])) {
+        if (isset($data['next_page_token'])) {
             self::$nextPage = [
                 'url' =>  '/place/nearbysearch/json',
                 'params' => array_merge([], [
-                    'pagetoken' => $data["next_page_token"]
+                    'pagetoken' => $data['next_page_token']
                 ])
             ];
         }
@@ -145,11 +145,11 @@ class Place extends AbstractClient
             $return[] = PlaceModel::parse($current);
         }
 
-        if (isset($data["next_page_token"])) {
+        if (isset($data['next_page_token'])) {
             self::$nextPage = [
                 'url' =>  '/place/textsearch/json',
                 'params' => array_merge($params, [
-                    'pagetoken' => $data["next_page_token"]
+                    'pagetoken' => $data['next_page_token']
                 ])
             ];
         }
@@ -180,8 +180,8 @@ class Place extends AbstractClient
             $return[] = PlaceModel::parse($current);
         }
 
-        if (isset($data["next_page_token"])) {
-            self::$nextPage['params']['pagetoken'] = $data["next_page_token"];
+        if (isset($data['next_page_token'])) {
+            self::$nextPage['params']['pagetoken'] = $data['next_page_token'];
         }
 
         return $return;

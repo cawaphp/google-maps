@@ -45,7 +45,6 @@ class PlaceDetail extends Place
 
         if (isset($data['opening_hours']['periods'])) {
             foreach (self::extract($data, 'opening_hours/periods') as $current) {
-
                 list($hour, $min) = self::extractHourMin($current['open']);
                 $open = new DateTime();
                 $open->setTimezone('UTC');
