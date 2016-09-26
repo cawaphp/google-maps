@@ -20,7 +20,7 @@ class PlaceDetail extends Place
     /**
      * @param array $data
      *
-     * @return static
+     * @return $this|self
      */
     protected static function map(array &$data)
     {
@@ -45,27 +45,29 @@ class PlaceDetail extends Place
 
         if (isset($data['opening_hours']['periods'])) {
             foreach (self::extract($data, 'opening_hours/periods') as $current) {
-                list($hour, $min) = self::extractHourMin($current['open']);
-                $open = new DateTime();
-                $open->setTimezone('UTC');
-                $open->next($current['open']['day']);
-                $open->hour($hour);
-                $open->minute($min);
-                $open->second(0);
-                $open->addMinutes(-$return->utcOffset);
-                $open->setTimezone(date_default_timezone_get());
+                if (isset($current['open']) && isset($current['close'])) {
+                    list($hour, $min) = self::extractHourMin($current['open']);
+                    $open = new DateTime();
+                    $open->setTimezone('UTC');
+                    $open->next($current['open']['day']);
+                    $open->hour($hour);
+                    $open->minute($min);
+                    $open->second(0);
+                    $open->addMinutes(-$return->utcOffset);
+                    $open->setTimezone(date_default_timezone_get());
 
-                list($hour, $min) = self::extractHourMin($current['close']);
-                $close = new DateTime();
-                $close->setTimezone('UTC');
-                $close->next($current['close']['day']);
-                $close->hour($hour);
-                $close->minute($min);
-                $close->second(0);
-                $close->addMinutes(-$return->utcOffset);
-                $close->setTimezone(date_default_timezone_get());
+                    list($hour, $min) = self::extractHourMin($current['close']);
+                    $close = new DateTime();
+                    $close->setTimezone('UTC');
+                    $close->next($current['close']['day']);
+                    $close->hour($hour);
+                    $close->minute($min);
+                    $close->second(0);
+                    $close->addMinutes(-$return->utcOffset);
+                    $close->setTimezone(date_default_timezone_get());
 
-                $return->openingHours[] = new OpeningHoursPeriod($open, $close);
+                    $return->openingHours[] = new OpeningHoursPeriod($open, $close);
+                }
             }
         }
 

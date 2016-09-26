@@ -105,7 +105,7 @@ class GeocoderResult implements \JsonSerializable
     /**
      * @param array $data
      *
-     * @return static
+     * @return $this|self
      */
     protected static function map(array &$data)
     {
@@ -183,7 +183,7 @@ class GeocoderResult implements \JsonSerializable
     /**
      * @param array|string $data
      *
-     * @return static
+     * @return $this|self
      */
     public static function parse(array $data) : self
     {

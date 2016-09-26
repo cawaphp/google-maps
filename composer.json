@@ -18,6 +18,7 @@
     "require": {
         "php": "~7.0",
         "cawaphp/cawa" : "dev-master",
-        "cawaphp/httpclient" : "dev-master"
+        "cawaphp/httpclient" : "dev-master",
+        "cawaphp/serializer": "dev-master"
     }
 }
