@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
@@ -95,7 +95,7 @@ class GeocoderResult implements \JsonSerializable
                 return $return;
             } else {
                 $key = array_shift($keys);
-                $return =  self::extract($data[$key], $keys);
+                $return = self::extract($data[$key], $keys);
             }
         }
 
@@ -272,7 +272,7 @@ class GeocoderResult implements \JsonSerializable
 
     /**
      * An array of strings denoting the type of the returned geocoded element.
-     * AddressComponent::TYPE_* for the full list
+     * AddressComponent::TYPE_* for the full list.
      *
      * @var string[]
      */

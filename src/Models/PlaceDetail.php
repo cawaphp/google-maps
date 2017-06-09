@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
@@ -70,7 +70,7 @@ class PlaceDetail extends Place
 
                     $return->openingHours[] = new OpeningHoursPeriod($open, $close);
                 }
-            };
+            }
         }
 
         return $return;

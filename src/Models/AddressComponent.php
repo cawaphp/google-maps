@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
@@ -112,7 +112,7 @@ class AddressComponent
 
     /**
      * indicates a first-order entity below a named location, usually a singular
-     * building within a collection of buildings with a common name
+     * building within a collection of buildings with a common name.
      */
     const TYPE_SUBPREMISE = 'subpremise';
 
@@ -151,7 +151,7 @@ class AddressComponent
     /**
      * indicates a named point of interest. Typically, these "POI"s are
      * prominent local entities that don't easily fit in another category, such as "Empire State
-     * Building" or "Statue of Liberty."
+     * Building" or "Statue of Liberty.".
      */
     const TYPE_POINT_OF_INTEREST = 'point_of_interest';
 
@@ -243,7 +243,7 @@ class AddressComponent
     /**
      * Gets the address component long name.
      *
-     * @return string The address component long name.
+     * @return string the address component long name
      */
     public function getLongName() : string
     {
@@ -258,7 +258,7 @@ class AddressComponent
     /**
      * Gets the address component short name.
      *
-     * @return string The address component short name.
+     * @return string the address component short name
      */
     public function getShortName() : string
     {
@@ -273,7 +273,7 @@ class AddressComponent
     /**
      * Gets the address component types.
      *
-     * @return array The address component types.
+     * @return array the address component types
      */
     public function getTypes() : array
     {

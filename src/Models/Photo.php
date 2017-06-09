@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace Cawa\GoogleMaps\Models;
 
@@ -83,7 +83,7 @@ class Photo
     private $attributions;
 
     /**
-     * contains any required attributions
+     * contains any required attributions.
      *
      * @return string[]
      */
@@ -106,7 +106,7 @@ class Photo
 
         $queries = [
             'photoreference' => $this->reference,
-            'key' => DI::config()->get('googleMaps/apikey')
+            'key' => DI::config()->get('googleMaps/apikey'),
         ];
 
         if ($maxWidth) {

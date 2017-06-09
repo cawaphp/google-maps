@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace Cawa\GoogleMaps;
 
@@ -28,7 +28,7 @@ class Place extends AbstractClient
     /**
      * Defines the distance (in meters) within which to return place results.
      * The maximum allowed radius is 50 000 meters.
-     * Note that radius must not be included if rankby=distance
+     * Note that radius must not be included if rankby=distance.
      */
     const PARAM_RADIUS = 'radius';
 
@@ -101,7 +101,7 @@ class Place extends AbstractClient
     public static function nearby(array $params = []) : array
     {
         $data = self::query('/place/nearbysearch/json', array_merge($params, [
-            'key' => DI::config()->get('googleApi/server')
+            'key' => DI::config()->get('googleApi/server'),
         ]));
 
         $return = [];
@@ -111,10 +111,10 @@ class Place extends AbstractClient
 
         if (isset($data['next_page_token'])) {
             self::$nextPage = [
-                'url' =>  '/place/nearbysearch/json',
+                'url' => '/place/nearbysearch/json',
                 'params' => array_merge([], [
-                    'pagetoken' => $data['next_page_token']
-                ])
+                    'pagetoken' => $data['next_page_token'],
+                ]),
             ];
         }
 
@@ -147,15 +147,16 @@ class Place extends AbstractClient
 
         if (isset($data['next_page_token'])) {
             self::$nextPage = [
-                'url' =>  '/place/textsearch/json',
+                'url' => '/place/textsearch/json',
                 'params' => array_merge($params, [
-                    'pagetoken' => $data['next_page_token']
-                ])
+                    'pagetoken' => $data['next_page_token'],
+                ]),
             ];
         }
 
         return $return;
     }
+
     /**
      * @var array
      */
