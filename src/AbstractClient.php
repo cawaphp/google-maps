@@ -19,10 +19,13 @@ use Cawa\GoogleMaps\Exceptions\OverQueryLimit;
 use Cawa\GoogleMaps\Exceptions\RequestDenied;
 use Cawa\GoogleMaps\Exceptions\Unknown;
 use Cawa\HttpClient\HttpClient;
+use Cawa\HttpClient\HttpClientFactory;
 use Cawa\Net\Uri;
 
 class AbstractClient
 {
+    use HttpClientFactory;
+
     /**
      * @var HttpClient
      */
@@ -42,7 +45,7 @@ class AbstractClient
     protected static function query(string $url, array $queries = []) : array
     {
         if (!self::$client) {
-            self::$client = new HttpClient();
+            self::$client = self::httpClient(self::class);
             $base = new Uri('https://maps.googleapis.com/maps/api');
 
             self::$client->setBaseUri($base);
