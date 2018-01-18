@@ -148,16 +148,29 @@ class GeocoderResult implements \JsonSerializable
         }
 
         if (isset($data['geometry']['bounds'])) {
-            $bounds = new Bounds(
-                new Coordinate(
-                    self::extract($data, 'geometry/bounds/north'),
-                    self::extract($data, 'geometry/bounds/east')
-                ),
-                new Coordinate(
-                    self::extract($data, 'geometry/bounds/south'),
-                    self::extract($data, 'geometry/bounds/west')
-                )
-            );
+            if ($data['geometry']['bounds']['northeast']) {
+                $bounds = new Bounds(
+                    new Coordinate(
+                        self::extract($data, 'geometry/bounds/northeast/lat'),
+                        self::extract($data, 'geometry/bounds/northeast/lng')
+                    ),
+                    new Coordinate(
+                        self::extract($data, 'geometry/bounds/southwest/lat'),
+                        self::extract($data, 'geometry/bounds/southwest/lng')
+                    )
+                );
+            } else {
+                $bounds = new Bounds(
+                    new Coordinate(
+                        self::extract($data, 'geometry/bounds/north'),
+                        self::extract($data, 'geometry/bounds/east')
+                    ),
+                    new Coordinate(
+                        self::extract($data, 'geometry/bounds/south'),
+                        self::extract($data, 'geometry/bounds/west')
+                    )
+                );
+            }
         }
 
         $return->geometry = new Geometry(
